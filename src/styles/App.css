@@ -101,27 +101,132 @@ body {
   border-radius: 16px;
 }
 
+/* 
+@keyframes rotate-card {
+  0% {
+    transform: rotate(0deg) translateY(-80px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateY(-80px) rotate(-360deg);
+  }
+}
+
+@keyframes rotate-card-reverse {
+  0% {
+    transform: rotate(0deg) translateY(-80px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg) translateY(-80px) rotate(360deg);
+  }
+}
+  
+
 .card {
   position: absolute;
+  /*animation: rotate-card 10s linear infinite; 
+  transform-origin: center center;
   z-index: 2;
 }
 
 .materials {
   top: 20%;
-  left: -40%;
+  left: -80%;
+  transform: translateX(-50%);
+  animation: rotate-card 16s linear infinite;
+}
+
+.proforientation {
+  top: 40%;
+  right: -70%;
+  transform: translateX(50%);
+  animation: rotate-card-reverse 10s linear infinite;
+}
+
+.ai-consultant {
+  bottom: 0%;
+  left: -30%;
+  transform: translateX(-50%);
+  animation: rotate-card 8s linear infinite;
+} 
+
+
+@keyframes jump-up-down {
+  0%, 100% {
+    transform: translateY(0); 
+  }
+  50% {
+    transform: translateY(-30px); 
+  }
+}
+
+.card {
+  position: absolute;
+  animation: jump-up-down 2s ease-in-out infinite; 
+  transform-origin: center;
+  z-index: 2;
+}
+
+.materials {
+  top: 20%;
+  left: -80%;
   transform: translateX(-50%);
 }
 
 .proforientation {
   top: 40%;
-  right: -30%;
+  right: -70%;
   transform: translateX(50%);
 }
 
 .ai-consultant {
-  bottom: 10%;
+  bottom: 0%;
   left: -30%;
   transform: translateX(-50%);
+}
+
+*/
+
+@keyframes jump-sway {
+  0%, 100% {
+    transform: translateY(0) translateX(0); /* Default position */
+  }
+  25% {
+    transform: translateY(-20px) translateX(-10px); /* Move up and slightly left */
+  }
+  50% {
+    transform: translateY(0) translateX(0); /* Move up higher, center */
+  }
+  75% {
+    transform: translateY(-20px) translateX(10px); /* Move up and slightly right */
+  }
+}
+
+.card {
+  position: absolute;
+  animation: jump-sway 3s ease-in-out infinite; /* Smooth, continuous animation */
+  transform-origin: center;
+  z-index: 2;
+}
+
+.materials {
+  top: 20%;
+  left: -70%;
+  transform: translateX(-50%);
+  animation-delay: 0s;
+}
+
+.proforientation {
+  top: 40%;
+  right: -60%;
+  transform: translateX(50%);
+  animation-delay: 0.2s;
+}
+
+.ai-consultant {
+  bottom: 0%;
+  left: -30%;
+  transform: translateX(-50%);
+  animation-delay: 0.8s;
 }
 
 /* Mobile Application Section */
@@ -760,4 +865,3 @@ body {
     text-align: center;
   }
 }
-

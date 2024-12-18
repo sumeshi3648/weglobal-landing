@@ -1,5 +1,5 @@
 <template>
-  <div class="main-container">
+<div class="main-container">
     <!-- Top Navbar -->
     <header class="navbar">
       <img src="@/assets/logo.png" alt="logo" class="logo" />
@@ -12,10 +12,7 @@
     <!-- Heading Section -->
     <section class="heading-section">
       <h1>Готовим умы - к <span class="highlight">будущему</span></h1>
-      <p>
-        Инновационный EdTech стартап, стремящийся преобразить образование с
-        помощью ИИ
-      </p>
+      <p>Инновационный EdTech стартап, стремящийся преобразить образование с помощью ИИ</p>
       <button class="start-btn">Начать</button>
     </section>
 
