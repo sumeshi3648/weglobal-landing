@@ -4,38 +4,83 @@
     <header class="navbar">
       <img src="@/assets/logo.png" alt="logo" class="logo" />
       <div class="language-switch">
-        <span>Русский</span>
-        <button class="btn">Казахский</button>
+
+        <button
+        :class="{ active: $i18n.locale === 'kz' }"
+        @click="changeLanguage('kz')"
+        class="btn"
+      >
+        {{ $t("navbar.kazakh") }}
+      </button>
+      <button
+        :class="{ active: $i18n.locale === 'ru' }"
+        @click="changeLanguage('ru')"
+        class="btn"
+      >
+        {{ $t("navbar.russian") }}
+      </button>
+
       </div>
     </header>
 
     <!-- Heading Section -->
     <section class="heading-section">
-      <h1>Готовим умы - к <span class="highlight">будущему</span></h1>
-      <p>Инновационный EdTech стартап, стремящийся преобразить образование с помощью ИИ</p>
-      <button class="start-btn">Начать</button>
+      <h1 v-html="$t('heading.title')"></h1>
+      <p>{{ $t('heading.description') }}</p>
+   <!----   <button class="start-btn">{{ $t('heading.start') }}</button> -->
+
+
+      <div class="role-buttons">
+        <button
+          :class="{ active: selectedRole === 'student' }"
+          @click="changeRole('student')"
+          class="btn"
+        >
+        {{ $t('roles.student') }}
+        </button>
+        <button
+          :class="{ active: selectedRole === 'teacher' }"
+          @click="changeRole('teacher')"
+          class="btn"
+        >
+          {{ $t('roles.teacher') }}
+        </button>
+      </div>
     </section>
 
-    <!-- Phone Container -->
+  <div :class="['phone-container', { teacher: selectedRole === 'teacher' }]">
+    <div class="phone-frame">
+      <img
+        :src="phoneImage"
+        :alt="$i18n.locale === 'ru' ? 'Phone Mockup (Russian)' : 'Phone Mockup (Kazakh)'"
+      />
+    </div>
+
+
+
+    <!-- Phone Container 
     <div class="phone-container">
       <div class="phone-frame">
-        <img src="@/assets/mobile-main.png" alt="Phone Mockup" />
-      </div>
+        <img
+          :src="phoneImage"
+          :alt="$i18n.locale === 'ru' ? 'Phone Mockup (Russian)' : 'Phone Mockup (Kazakh)'"
+        />
+      </div> -->
 
       <!-- Cards -->
       <CardComponent
         :icon="require('@/assets/appCards/materials.png')"
-        title="Различные материалы"
+        :title="$i18n.locale === 'ru' ? 'Различные материалы' : 'Әртүрлі ресурстар'"
         class="card materials"
       />
       <CardComponent
         :icon="require('@/assets/appCards/proforientation.png')"
-        title="Профориентация"
+        :title="$i18n.locale === 'ru' ? 'Профориентация' : 'Кәсіби бағдар'"
         class="card proforientation"
       />
       <CardComponent
         :icon="require('@/assets/appCards/ai_consultant.png')"
-        title="ИИ-консультант"
+        :title="$i18n.locale === 'ru' ? 'ИИ-консультант' : 'ЖИ кеңесшісі'"
         class="card ai-consultant"
       />
     </div>
@@ -44,38 +89,38 @@
   <!-- Second Section -->
   <section class="mobile-application-section">
     <!-- Section Title -->
-    <h2 class="mobile-application-title">Мобильное приложение</h2>
+    <h2 class="mobile-application-title">{{ $t('mobileApp.title') }}</h2>
 
     <!-- Card Container -->
     <div class="card-container">
       <!-- First Card -->
-      <div class="card blue">
+      <div class="cardInfo blue">
         <img
-          src="@/assets/appCards/ProforientationCard.png"
-          alt="Программа Профориентации"
-          class="card-image"
-        />
-        <h3 class="card-title">Программа<br />Профориентации</h3>
+        :src="cardImage('card1')"
+        :alt="$t('secondSection.cards.card1.alt')"
+        class="card-image"
+      />
+      <h3 class="card-title" v-html="$t('mobileApp.cards.proforientation')"></h3>
       </div>
 
       <!-- Second Card -->
-      <div class="card red">
+      <div class="cardInfo red">
         <img
-          src="@/assets/appCards/AIConsultantCard.png"
-          alt="ИИ консультант"
-          class="card-image"
-        />
-        <h3 class="card-title">ИИ<br />консультант</h3>
+        :src="cardImage('card2')"
+        :alt="$t('secondSection.cards.card2.alt')"
+        class="card-image"
+      />
+      <h3 class="card-title" v-html="$t('mobileApp.cards.aiConsultant')"></h3>
       </div>
 
       <!-- Third Card -->
-      <div class="card purple">
+      <div class="cardInfo purple">
         <img
-          src="@/assets/appCards/ResourcesCard.png"
-          alt="Ресурсы"
-          class="card-image"
-        />
-        <h3 class="card-title">Ресурсы</h3>
+        :src="cardImage('card3')"
+        :alt="$t('secondSection.cards.card3.alt')"
+        class="card-image"
+      />
+      <h3 class="card-title" v-html="$t('mobileApp.cards.resources')"></h3>
       </div>
     </div>
   </section>
@@ -84,11 +129,8 @@
   <section class="third-frame">
     <!-- Title -->
     <div class="frame-header-left">
-      <h2>Для Ученика</h2>
-      <p>
-        Полный инструмент для поддержки учеников в самообучении, карьере и
-        психологической навигации при выборе профессии и университета.
-      </p>
+      <h2>{{ $t("thirdFrame.title") }}</h2>
+    <p>{{ $t("thirdFrame.description") }}</p>
     </div>
 
     <!-- Features Container -->
@@ -97,10 +139,10 @@
       <div class="feature-card-vertical">
         <div class="gradient-container gradient-blue">
           <img
-            src="@/assets/mobile-plan.png"
-            alt="Step Plan Screenshot"
-            class="mobile-screenshot"
-          />
+          :src="featureImage('stepPlan')"
+          :alt="$t('thirdFrame.features.stepPlan.imageAlt')"
+          class="mobile-screenshot"
+        />
         </div>
         <div class="feature-content">
           <div class="logo-text-container">
@@ -109,13 +151,9 @@
               alt="Step Plan Logo"
               class="feature-logo"
             />
-            <h3>Пошаговый план</h3>
+            <h3>{{ $t('thirdFrame.features.stepPlan.title') }}</h3>
           </div>
-          <p>
-            Пошаговая программа для поступления и выбора университета,
-            дополненная профориентацией, которая поможет вам глубже понять себя
-            и определить свои цели.
-          </p>
+          <p>{{ $t('thirdFrame.features.stepPlan.description') }}</p>
         </div>
       </div>
 
@@ -123,10 +161,10 @@
       <div class="feature-card-vertical reverse-layout">
         <div class="gradient-container gradient-orange">
           <img
-            src="@/assets/mobile-main.png"
-            alt="Personal Guide Screenshot"
-            class="mobile-screenshot"
-          />
+          :src="featureImage('personalGuide')"
+          :alt="$t('thirdFrame.features.personalGuide.imageAlt')"
+          class="mobile-screenshot"
+        />
         </div>
         <div class="feature-content">
           <div class="logo-text-container">
@@ -135,13 +173,9 @@
               alt="Personal Guide Logo"
               class="feature-logo"
             />
-            <h3>Индивидуальный путеводитель</h3>
-          </div>
-          <p>
-            Раздел с обширной библиотекой профессий, персонализированными
-            рекомендациями и ИИ-консультантом для успешного поступления в
-            университет.
-          </p>
+            <h3>{{ $t('thirdFrame.features.personalGuide.title') }}</h3>
+        </div>
+        <p>{{ $t('thirdFrame.features.personalGuide.description') }}</p>
         </div>
       </div>
 
@@ -149,10 +183,10 @@
       <div class="feature-card-vertical">
         <div class="gradient-container gradient-purple">
           <img
-            src="@/assets/mobile-career.png"
-            alt="Career Navigator Screenshot"
-            class="mobile-screenshot"
-          />
+          :src="featureImage('careerNavigator')"
+          :alt="$t('thirdFrame.features.careerNavigator.imageAlt')"
+          class="mobile-screenshot"
+        />
         </div>
         <div class="feature-content">
           <div class="logo-text-container">
@@ -161,19 +195,16 @@
               alt="Career Navigator Logo"
               class="feature-logo"
             />
-            <h3>Навигатор карьеры</h3>
-          </div>
-          <p>
-            Полный набор инструментов и ресурсов для саморазвития и выбора
-            профессии, которая вам действительно по душе.
-          </p>
+            <h3>{{ $t('thirdFrame.features.careerNavigator.title') }}</h3>
+        </div>
+        <p>{{ $t('thirdFrame.features.careerNavigator.description') }}</p>
         </div>
       </div>
     </div>
   </section>
 
   <section class="company-section">
-    <h2>Нам доверяют они</h2>
+    <h2>{{ $t('companySection.title') }}</h2>
     <div class="logo-frame">
       <img src="@/assets/schools/nu.png" alt="Nazarbayev University" />
       <img src="@/assets/schools/astana-hub.png" alt="Astana Hub" />
@@ -192,16 +223,12 @@
     <div class="download-content">
       <!-- Left Side: Text and QR -->
       <div class="text-qr">
-        <h2>Скачайте WeGlobal App QR прямо сейчас!</h2>
+        <h2>{{ $t('downloadSection.title') }}</h2>
         <div class="qr-sign">
           <div class="qr-code">
             <img src="@/assets/qr-code.jpeg" alt="QR Code" />
           </div>
-          <p>
-            Откройте новые возможности! Скачайте Weglobal.io и получите
-            персональные рекомендации по карьере и удобный план поступления уже
-            сегодня!
-          </p>
+          <p>{{ $t('downloadSection.description') }}</p>
         </div>
       </div>
 
@@ -216,32 +243,26 @@
     <div class="footer-container">
       <!-- Left Section: Contact Information -->
       <div class="footer-contact">
-        <h3 class="footer-title">Свяжитесь с нами</h3>
-        <p class="footer-body">
-          Мы будем рады услышать вас! Если у вас есть вопросы о наших продуктах,
-          нужна поддержка или вы хотите сотрудничать, не стесняйтесь обращаться
-          к нам.
-        </p>
-        <p class="footer-detail">
-          Электронная почта:
-          <a href="mailto:ceo@weglobal.kz" class="footer-link"
-            >ceo@weglobal.kz</a
-          >
-        </p>
-        <p class="footer-detail">
-          Телефон:
-          <a href="tel:87072802882" class="footer-link">8-707-280-28-82</a>
-        </p>
-        <p class="footer-detail">
-          Адрес: Кабанбай батыра 53, Блок 32, офис 123, Астана, Казахстан
-        </p>
+        <h3 class="footer-title">{{ $t('footer.title') }}</h3>
+      <p class="footer-body">{{ $t('footer.body') }}</p>
+      <p class="footer-detail">
+        {{ $t('footer.emailLabel') }}:
+        <a href="mailto:ceo@weglobal.kz" class="footer-link">ceo@weglobal.kz</a>
+      </p>
+      <p class="footer-detail">
+        {{ $t('footer.phoneLabel') }}:
+        <a href="tel:87072802882" class="footer-link">8-707-280-28-82</a>
+      </p>
+      <p class="footer-detail">
+        {{ $t('footer.addressLabel') }}: {{ $t('footer.address') }}
+      </p>
       </div>
 
       <!-- Right Section: Logo and Social Media -->
       <div class="footer-info">
         <h2 class="footer-logo">WEGLOBAL</h2>
         <div class="footer-social">
-          <p>Следите За Нами</p>
+          <p>{{ $t('footer.followUs') }}</p>
           <div class="social-links">
             <a href="#" class="social-icon">
               <img src="@/assets/icons/instagram.svg" alt="Instagram" />
@@ -259,11 +280,77 @@
   </footer>
 </template>
 
+
+
 <script>
 import CardComponent from "./components/CardComponent.vue";
 import "@/styles/App.css"; // Import the CSS file
 
 export default {
   components: { CardComponent },
+  
+  data() {
+    return {
+      selectedRole: 'student', // Default to the student page
+    };
+  },
+  methods: {
+    changeLanguage(lang) {
+      this.$i18n.locale = lang;
+    },
+    changeRole(role) {
+      this.selectedRole = role; // Update the selected role
+    },
+    cardImage(cardKey) {
+      const locale = this.$i18n.locale;
+      const imageMap = {
+        ru: {
+          card1: require('@/assets/screenshots/ProforientationCard-rus.svg'),
+          card2: require('@/assets/screenshots/AIConsultantCard-rus.svg'),
+          card3: require('@/assets/screenshots/ResourcesCard-rus.svg')
+        },
+        kz: {
+          card1: require('@/assets/screenshots/ProforientationCard-kaz.svg'),
+          card2: require('@/assets/screenshots/AIConsultantCard-kaz.svg'),
+          card3: require('@/assets/screenshots/ResourcesCard-kaz.svg')
+        }
+      };
+      return imageMap[locale][cardKey];
+    },
+
+    featureImage(featureKey) {
+      const locale = this.$i18n.locale;
+      const imageMap = {
+        ru: {
+          stepPlan: require("@/assets/screenshots/proforientation-rus.svg"),
+          personalGuide: require("@/assets/screenshots/main-rus-student.svg"),
+          careerNavigator: require("@/assets/screenshots/resources-rus.svg")
+        },
+        kz: {
+          stepPlan: require("@/assets/screenshots/proforientation-kaz.svg"),
+          personalGuide: require("@/assets/screenshots/main-kaz-student.svg"),
+          careerNavigator: require("@/assets/screenshots/resources-kaz.svg")
+        }
+      };
+      return imageMap[locale][featureKey];
+    }
+  },
+  computed: {
+    phoneImage() {
+    if (this.selectedRole === 'student') {
+      return this.$i18n.locale === 'ru'
+        ? require('@/assets/screenshots/main-rus-student.svg')
+        : require('@/assets/screenshots/main-kaz-student.svg');
+    } else if (this.selectedRole === 'teacher') {
+      return this.$i18n.locale === 'ru'
+        ? require('@/assets/screenshots/main-rus-teacher.svg')
+        : require('@/assets/screenshots/main-rus-teacher.svg');
+    }
+    return require('@/assets/screenshots/main-rus-teacher.svg');
+  }
+
+  },
 };
 </script>
+
+

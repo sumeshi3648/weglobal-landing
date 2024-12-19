@@ -40,13 +40,20 @@ body {
 }
 
 .btn {
-  background: #052dc1;
-  color: white;
+  background: #ffffff;
+  color: #343434;
   border-radius: 80px;
   border: none;
   padding: 13px 37px;
   cursor: pointer;
+  font-size: 16px;
 }
+
+.btn.active {
+  background: #052dc1;
+  color: #ffffff;
+}
+
 
 /* Heading Section */
 
@@ -101,90 +108,15 @@ body {
   border-radius: 16px;
 }
 
-/* 
-@keyframes rotate-card {
-  0% {
-    transform: rotate(0deg) translateY(-80px) rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg) translateY(-80px) rotate(-360deg);
-  }
+.phone-container.teacher {
+  width: 600px; /* Slightly larger for teacher role */
 }
 
-@keyframes rotate-card-reverse {
-  0% {
-    transform: rotate(0deg) translateY(-80px) rotate(0deg);
-  }
-  100% {
-    transform: rotate(-360deg) translateY(-80px) rotate(360deg);
-  }
-}
-  
-
-.card {
-  position: absolute;
-  /*animation: rotate-card 10s linear infinite; 
-  transform-origin: center center;
-  z-index: 2;
+.phone-container.teacher img {
+  width: 100%; /* Ensure larger images fit within container */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.materials {
-  top: 20%;
-  left: -80%;
-  transform: translateX(-50%);
-  animation: rotate-card 16s linear infinite;
-}
-
-.proforientation {
-  top: 40%;
-  right: -70%;
-  transform: translateX(50%);
-  animation: rotate-card-reverse 10s linear infinite;
-}
-
-.ai-consultant {
-  bottom: 0%;
-  left: -30%;
-  transform: translateX(-50%);
-  animation: rotate-card 8s linear infinite;
-} 
-
-
-@keyframes jump-up-down {
-  0%, 100% {
-    transform: translateY(0); 
-  }
-  50% {
-    transform: translateY(-30px); 
-  }
-}
-
-.card {
-  position: absolute;
-  animation: jump-up-down 2s ease-in-out infinite; 
-  transform-origin: center;
-  z-index: 2;
-}
-
-.materials {
-  top: 20%;
-  left: -80%;
-  transform: translateX(-50%);
-}
-
-.proforientation {
-  top: 40%;
-  right: -70%;
-  transform: translateX(50%);
-}
-
-.ai-consultant {
-  bottom: 0%;
-  left: -30%;
-  transform: translateX(-50%);
-}
-
-*/
 
 @keyframes jump-sway {
   0%, 100% {
@@ -203,7 +135,7 @@ body {
 
 .card {
   position: absolute;
-  animation: jump-sway 3s ease-in-out infinite; /* Smooth, continuous animation */
+  animation: jump-sway 6s ease-in-out infinite; /* Smooth, continuous animation */
   transform-origin: center;
   z-index: 2;
 }
@@ -226,7 +158,7 @@ body {
   bottom: 0%;
   left: -30%;
   transform: translateX(-50%);
-  animation-delay: 0.8s;
+  animation-delay: 0.5s;
 }
 
 /* Mobile Application Section */
@@ -253,7 +185,7 @@ body {
 
 /* Individual Cards */
 /* Individual Cards */
-.card {
+.cardInfo {
   position: relative;
   width: 100%;
   max-width: 350px; /* Fixed card width */
@@ -270,20 +202,20 @@ body {
 }
 
 /* Replacing gradients with images */
-.card.blue {
+.cardInfo.blue {
   background: url('@/assets/appCards/glass1.png') no-repeat center center/cover;
 }
 
-.card.red {
+.cardInfo.red {
   background: url('@/assets/appCards/glass2.png') no-repeat center center/cover;
 }
 
-.card.purple {
+.cardInfo.purple {
   background: url('@/assets/appCards/glass3.png') no-repeat center center/cover;
 }
 
 /* Blur Overlay for Text */
-.card::after {
+.cardInfo::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -296,7 +228,7 @@ body {
   backdrop-filter: blur(2px); /* Lighter blur */
   z-index: 1;
 }
-.card.red::after {
+.cardInfo.red::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -315,7 +247,7 @@ body {
 }
 
 /* Blue Card Blur */
-.card.blue::after {
+.cardInfo.blue::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -336,7 +268,7 @@ body {
 
 
 /* Purple Card Blur */
-.card.purple::after {
+.cardInfo.purple::after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -521,7 +453,7 @@ body {
 
 /* Mobile Screenshot */
 .mobile-screenshot {
-  width: 284px;
+  width: 280px;
   height: 584px;
   object-fit: cover;
   position: absolute;
