@@ -91,7 +91,7 @@
         :alt="$t('secondSection.cards.card1.alt')"
         class="card-image"
       />
-      <h3 class="card-title" v-html="$t('mobileApp.cards.proforientation')"></h3>
+      <h3 class="blue-title" v-html="$t('mobileApp.cards.proforientation')"></h3>
     </div>
 
     <!-- 2nd Card (Static) -->
@@ -101,7 +101,7 @@
         :alt="$t('secondSection.cards.card2.alt')"
         class="card-image"
       />
-      <h3 class="card-title" v-html="$t('mobileApp.cards.aiConsultant')"></h3>
+      <h3 class="red-title" v-html="$t('mobileApp.cards.aiConsultant')"></h3>
     </div>
 
     <!-- 3rd Card -->
@@ -111,7 +111,7 @@
         :alt="$t('secondSection.cards.card3.alt')"
         class="card-image"
       />
-      <h3 class="card-title" v-html="$t('mobileApp.cards.resources')"></h3>
+      <h3 class="purple-title" v-html="$t('mobileApp.cards.resources')"></h3>
     </div>
   </div>
 </section>

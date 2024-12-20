@@ -364,7 +364,7 @@ body {
   );
 }
 
-/* Card Titles */
+/*
 .card-title {
   position: absolute;
   bottom: 40px;
@@ -372,11 +372,52 @@ body {
   transform: translateX(-50%);
   font-size: 2rem;
   font-weight: 700;
-  color: white;
   text-transform: uppercase;
   text-align: center;
+  color: #052dc1; 
   z-index: 2;
 }
+
+*/
+
+.blue-title {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  color: #0b56a7; 
+  z-index: 2;
+}
+
+.red-title {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  color: #bc3b3b; 
+  z-index: 2;
+}
+
+.purple-title {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  color: #442e7c; 
+  z-index: 2;
+} 
 
 /* Card Images */
 .card-image {
