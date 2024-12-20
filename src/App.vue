@@ -1,6 +1,6 @@
 <template>
 <div class="main-container">
-    <!-- Top Navbar -->
+    <!-- Navigation Bar -->
     <header class="navbar">
       <img src="@/assets/logo.svg" alt="logo" class="logo" />
       <div class="language-switch">
@@ -27,30 +27,28 @@
     <section class="heading-section">
       <h1 v-html="$t('heading.title')"></h1>
       <p>{{ $t('heading.description') }}</p>
-   <!----   <button class="start-btn">{{ $t('heading.start') }}</button> -->
-
-   <div class="role-buttons">
-  <button :class="{ active: selectedRole === 'student' }" @click="changeRole('student')" class="role-btn">
-    <img
-      :src="selectedRole === 'student' ? require('@/assets/icons/student-icon-white.svg') : require('@/assets/icons/student-icon-blue.svg')" 
-      alt="Student Icon"
-      class="role-icon"
-    />
-    <span>{{ $t('roles.student') }}</span>
-  </button>
-  <button
-    :class="['role-btn', { active: selectedRole === 'teacher' }]" @click="changeRole('teacher')">
-    <img
-      :src="selectedRole === 'teacher' ? require('@/assets/icons/teacher-icon-white.svg') : require('@/assets/icons/teacher-icon-blue.svg')" 
-      alt="Teacher Icon"
-      class="role-icon"
-    />
-    <span>{{ $t('roles.teacher') }}</span>
-  </button>
-</div>
-
+      <div class="role-buttons">
+        <button :class="{ active: selectedRole === 'student' }" @click="changeRole('student')" class="role-btn">
+          <img
+            :src="selectedRole === 'student' ? require('@/assets/icons/student-icon-white.svg') : require('@/assets/icons/student-icon-blue.svg')" 
+            alt="Student Icon"
+            class="role-icon"
+          />
+          <span>{{ $t('roles.student') }}</span>
+        </button>
+        <button
+          :class="['role-btn', { active: selectedRole === 'teacher' }]" @click="changeRole('teacher')">
+          <img
+            :src="selectedRole === 'teacher' ? require('@/assets/icons/teacher-icon-white.svg') : require('@/assets/icons/teacher-icon-blue.svg')" 
+            alt="Teacher Icon"
+            class="role-icon"
+          />
+          <span>{{ $t('roles.teacher') }}</span>
+        </button>
+      </div>
     </section>
 
+  <!-- Main Screen -->
   <div :class="['phone-container', { teacher: selectedRole === 'teacher' }]">
     <div class="phone-frame">
       <img
@@ -58,19 +56,7 @@
         :alt="$i18n.locale === 'ru' ? 'Phone Mockup (Russian)' : 'Phone Mockup (Kazakh)'"
       />
     </div>
-
-
-
-    <!-- Phone Container 
-    <div class="phone-container">
-      <div class="phone-frame">
-        <img
-          :src="phoneImage"
-          :alt="$i18n.locale === 'ru' ? 'Phone Mockup (Russian)' : 'Phone Mockup (Kazakh)'"
-        />
-      </div> -->
-
-      <!-- Cards -->
+      <!-- Floating Cards -->
       <CardComponent
         :icon="require('@/assets/appCards/materials.png')"
         :title="$i18n.locale === 'ru' ? 'Различные материалы' : 'Әртүрлі ресурстар'"
@@ -89,14 +75,11 @@
     </div>
   </div>
 
-  <!-- Second Section -->
+  <!-- Cards Section (Only for students) -->
   <section class="mobile-application-section" v-if="selectedRole === 'student'">
-    <!-- Section Title -->
     <h2 class="mobile-application-title">{{ $t('mobileApp.title') }}</h2>
-
-    <!-- Card Container -->
     <div class="card-container">
-      <!-- First Card -->
+      <!-- 1st Card -->
       <div class="cardInfo blue">
         <img
         :src="cardImage('card1')"
@@ -106,7 +89,7 @@
       <h3 class="card-title" v-html="$t('mobileApp.cards.proforientation')"></h3>
       </div>
 
-      <!-- Second Card -->
+      <!-- 2nd Card -->
       <div class="cardInfo red">
         <img
         :src="cardImage('card2')"
@@ -116,7 +99,7 @@
       <h3 class="card-title" v-html="$t('mobileApp.cards.aiConsultant')"></h3>
       </div>
 
-      <!-- Third Card -->
+      <!-- 3rd Card -->
       <div class="cardInfo purple">
         <img
         :src="cardImage('card3')"
@@ -291,6 +274,50 @@
     </div>
   </section>
 
+  <section v-if="selectedRole === 'teacher'" class="advantages-section">
+  <!-- Title -->
+  <h2>{{ $t('advantagesAI.title') }}</h2>
+
+  <!-- Features Grid -->
+  <div class="advantages-grid">
+    <!-- Feature 1 -->
+    <div class="advantage-card">
+      <h3>{{ $t('advantagesAI.analytics.title') }}</h3>
+      <p>{{ $t('advantagesAI.analytics.description') }}</p>
+    </div>
+
+    <!-- Feature 2 -->
+    <div class="advantage-card">
+      <h3>{{ $t('advantagesAI.onlineDatabase.title') }}</h3>
+      <p>{{ $t('advantagesAI.onlineDatabase.description') }}</p>
+    </div>
+
+    <!-- Feature 3 -->
+    <div class="advantage-card">
+      <h3>{{ $t('advantagesAI.admissions.title') }}</h3>
+      <p>{{ $t('advantagesAI.admissions.description') }}</p>
+    </div>
+
+    <!-- Feature 4 -->
+    <div class="advantage-card">
+      <h3>{{ $t('advantagesAI.careerGuidance.title') }}</h3>
+      <p>{{ $t('advantagesAI.careerGuidance.description') }}</p>
+    </div>
+
+    <!-- Feature 5 -->
+    <div class="advantage-card">
+      <h3>{{ $t('advantagesAI.learningMaterials.title') }}</h3>
+      <p>{{ $t('advantagesAI.learningMaterials.description') }}</p>
+    </div>
+
+    <!-- Feature 6 -->
+    <div class="advantage-card">
+      <h3>{{ $t('advantagesAI.testing.title') }}</h3>
+      <p>{{ $t('advantagesAI.testing.description') }}</p>
+    </div>
+  </div>
+</section>
+
   <section class="download-section">
     <div class="download-content">
       <!-- Left Side: Text and QR -->
@@ -364,7 +391,9 @@ export default {
   data() {
     return {
       selectedRole: "student", // Default role
+      
     };
+    
   },
   methods: {
     changeLanguage(lang) {
