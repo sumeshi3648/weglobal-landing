@@ -90,6 +90,62 @@ body {
   cursor: pointer;
 }
 
+/* Role Buttons Container */
+.role-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px; /* Increased gap for more distance between buttons */
+  margin-top: 20px;
+}
+.role-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 120px; /* Reduced width */
+  height: 120px; /* Reduced height */
+  border: none;
+  border-radius: 12px; /* Adjusted radius for smaller buttons */
+  cursor: pointer;
+  background-color: #ffffff;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 14px; /* Reduced font size */
+  font-weight: 500;
+  color: #052dc1;
+}
+
+.role-btn.active {
+  background-color: #052dc1;
+  color: #ffffff;
+}
+
+.role-btn:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.role-icon {
+  width: 48px; /* Reduced icon size */
+  height: 48px; /* Reduced icon size */
+  margin-bottom: 12px;
+}
+
+
+
+@media (max-width: 768px) {
+  .role-btn {
+    width: 100px;
+    height: 100px;
+    font-size: 14px;
+  }
+
+  .role-icon {
+    width: 36px;
+    height: 36px;
+  }
+}
+
 .phone-container {
   position: relative;
   width: 300px;
@@ -109,12 +165,12 @@ body {
 }
 
 .phone-container.teacher {
-  width: 600px; /* Slightly larger for teacher role */
+  width: 700px; /* Slightly larger for teacher role */
 }
 
 .phone-container.teacher img {
   width: 100%; /* Ensure larger images fit within container */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.3);
 }
 
 
@@ -160,7 +216,22 @@ body {
   transform: translateX(-50%);
   animation-delay: 0.5s;
 }
+@media (min-width: 400px) {
+  .card.materials {
+    top: 10%; /* Move closer to the image */
+    left: -50%; /* Adjust left position */
+  }
 
+  .card.proforientation {
+    top: 30%; /* Adjust top position */
+    right: -40%; /* Bring closer to the image */
+  }
+
+  .card.ai-consultant {
+    bottom: 10%; /* Bring closer to the image */
+    left: -20%; /* Adjust left position */
+  }
+}
 /* Mobile Application Section */
 .mobile-application-section {
   text-align: center;
@@ -448,7 +519,31 @@ body {
 }
 
 .gradient-purple {
-  background: linear-gradient(135deg, #60a1ff 0%, #6368ff 100%); /* Updated as per design */
+  background: linear-gradient(135deg, #76acf7 0%, #6943dd 100%); /* Updated as per design */
+}
+
+.clipped-image1 {
+  position: absolute;
+  width: 815px; /* Original image width */
+  height: 568px; /* Original image height */
+  left: 60px; /* Align to show the desired part */
+  bottom: -228px; /* Adjust to align */
+}
+
+.clipped-image2 {
+  position: absolute;
+  width: 815px; /* Original image width */
+  height: 568px; /* Original image height */
+  right: 60px; /* Align to show the desired part */
+  bottom: -228px; /* Adjust to align */
+}
+
+.clipped-image3 {
+  position: absolute;
+  width: 815px; /* Original image width */
+  height: 568px; /* Original image height */
+  right: 60px; /* Align to show the desired part */
+  top: -50px; /* Adjust to align */
 }
 
 /* Mobile Screenshot */

@@ -2,7 +2,7 @@
 <div class="main-container">
     <!-- Top Navbar -->
     <header class="navbar">
-      <img src="@/assets/logo.png" alt="logo" class="logo" />
+      <img src="@/assets/logo.svg" alt="logo" class="logo" />
       <div class="language-switch">
 
         <button
@@ -29,23 +29,26 @@
       <p>{{ $t('heading.description') }}</p>
    <!----   <button class="start-btn">{{ $t('heading.start') }}</button> -->
 
+   <div class="role-buttons">
+  <button :class="{ active: selectedRole === 'student' }" @click="changeRole('student')" class="role-btn">
+    <img
+      :src="selectedRole === 'student' ? require('@/assets/icons/student-icon-white.svg') : require('@/assets/icons/student-icon-blue.svg')" 
+      alt="Student Icon"
+      class="role-icon"
+    />
+    <span>{{ $t('roles.student') }}</span>
+  </button>
+  <button
+    :class="['role-btn', { active: selectedRole === 'teacher' }]" @click="changeRole('teacher')">
+    <img
+      :src="selectedRole === 'teacher' ? require('@/assets/icons/teacher-icon-white.svg') : require('@/assets/icons/teacher-icon-blue.svg')" 
+      alt="Teacher Icon"
+      class="role-icon"
+    />
+    <span>{{ $t('roles.teacher') }}</span>
+  </button>
+</div>
 
-      <div class="role-buttons">
-        <button
-          :class="{ active: selectedRole === 'student' }"
-          @click="changeRole('student')"
-          class="btn"
-        >
-        {{ $t('roles.student') }}
-        </button>
-        <button
-          :class="{ active: selectedRole === 'teacher' }"
-          @click="changeRole('teacher')"
-          class="btn"
-        >
-          {{ $t('roles.teacher') }}
-        </button>
-      </div>
     </section>
 
   <div :class="['phone-container', { teacher: selectedRole === 'teacher' }]">
@@ -87,7 +90,7 @@
   </div>
 
   <!-- Second Section -->
-  <section class="mobile-application-section">
+  <section class="mobile-application-section" v-if="selectedRole === 'student'">
     <!-- Section Title -->
     <h2 class="mobile-application-title">{{ $t('mobileApp.title') }}</h2>
 
@@ -126,96 +129,165 @@
   </section>
 
   <!-- Third Frame Section -->
-  <section class="third-frame">
-    <!-- Title -->
-    <div class="frame-header-left">
-      <h2>{{ $t("thirdFrame.title") }}</h2>
-    <p>{{ $t("thirdFrame.description") }}</p>
-    </div>
+  <!-- Third Frame Section -->
+<section class="third-frame">
+  <!-- Title -->
+  <div class="frame-header-left">
+    <h2>{{ selectedRole === 'student' ? $t("thirdFrame.studentTitle") : $t("thirdFrame.teacherTitle") }}</h2>
+    <p>{{ selectedRole === 'student' ? $t("thirdFrame.studentDescription") : $t("thirdFrame.teacherDescription") }}</p>
+  </div>
 
-    <!-- Features Container -->
-    <div class="features-container-vertical">
-      <!-- Step Plan -->
-      <div class="feature-card-vertical">
-        <div class="gradient-container gradient-blue">
-          <img
+  <!-- Features Container -->
+  <div class="features-container-vertical">
+    <!-- Feature 1 -->
+    <div class="feature-card-vertical" v-if="selectedRole === 'student'">
+      <div class="gradient-container gradient-blue">
+        <img
           :src="featureImage('stepPlan')"
           :alt="$t('thirdFrame.features.stepPlan.imageAlt')"
           class="mobile-screenshot"
         />
-        </div>
-        <div class="feature-content">
-          <div class="logo-text-container">
-            <img
-              src="@/assets/icons/plan-icon.png"
-              alt="Step Plan Logo"
-              class="feature-logo"
-            />
-            <h3>{{ $t('thirdFrame.features.stepPlan.title') }}</h3>
-          </div>
-          <p>{{ $t('thirdFrame.features.stepPlan.description') }}</p>
-        </div>
       </div>
-
-      <!-- Personal Guide -->
-      <div class="feature-card-vertical reverse-layout">
-        <div class="gradient-container gradient-orange">
+      <div class="feature-content">
+        <div class="logo-text-container">
           <img
+            src="@/assets/icons/plan-icon.png"
+            alt="Step Plan Logo"
+            class="feature-logo"
+          />
+          <h3>{{ $t('thirdFrame.features.stepPlan.title') }}</h3>
+        </div>
+        <p>{{ $t('thirdFrame.features.stepPlan.description') }}</p>
+      </div>
+    </div>
+
+    <!-- Teacher Feature 1 -->
+    <div class="feature-card-vertical" v-if="selectedRole === 'teacher'">
+      <div class="gradient-container gradient-blue">
+          <img
+          :src="featureImage('analytics')"
+          :alt="$t('thirdFrame.features.analytics.imageAlt')"
+          class="clipped-image1"
+          />
+      </div>
+      <div class="feature-content">
+        <div class="logo-text-container">
+          <img
+            src="@/assets/icons/teacher-icon1.svg"
+            alt="Teacher Feature 1 Logo"
+            class="feature-logo"
+          />
+          <h3>{{ $t('thirdFrame.features.analytics.title') }}</h3>
+        </div>
+        <p>{{ $t('thirdFrame.features.analytics.description') }}</p>
+      </div>
+    </div>
+
+    <!-- Repeat for remaining features -->
+    <!-- Feature 2 -->
+    <div class="feature-card-vertical reverse-layout" v-if="selectedRole === 'student'">
+      <div class="gradient-container gradient-orange">
+        <img
           :src="featureImage('personalGuide')"
           :alt="$t('thirdFrame.features.personalGuide.imageAlt')"
           class="mobile-screenshot"
         />
-        </div>
-        <div class="feature-content">
-          <div class="logo-text-container">
-            <img
-              src="@/assets/icons/indiv-icon.png"
-              alt="Personal Guide Logo"
-              class="feature-logo"
-            />
-            <h3>{{ $t('thirdFrame.features.personalGuide.title') }}</h3>
+      </div>
+      <div class="feature-content">
+        <div class="logo-text-container">
+          <img
+            src="@/assets/icons/indiv-icon.png"
+            alt="Personal Guide Logo"
+            class="feature-logo"
+          />
+          <h3>{{ $t('thirdFrame.features.personalGuide.title') }}</h3>
         </div>
         <p>{{ $t('thirdFrame.features.personalGuide.description') }}</p>
-        </div>
       </div>
+    </div>
 
-      <!-- Career Navigator -->
-      <div class="feature-card-vertical">
-        <div class="gradient-container gradient-purple">
+    <!-- Teacher Feature 2 -->
+    <div class="feature-card-vertical reverse-layout" v-if="selectedRole === 'teacher'">
+      <div class="gradient-container gradient-orange">
+        <img
+          :src="featureImage('careerGuide')"
+          :alt="$t('thirdFrame.features.careerGuide.imageAlt')"
+          class="clipped-image2"
+        />
+      </div>
+      <div class="feature-content">
+        <div class="logo-text-container">
           <img
+            src="@/assets/icons/teacher-icon2.svg"
+            alt="Teacher Feature 2 Logo"
+            class="feature-logo"
+          />
+          <h3>{{ $t('thirdFrame.features.careerGuide.title') }}</h3>
+        </div>
+        <p>{{ $t('thirdFrame.features.careerGuide.description') }}</p>
+      </div>
+    </div>
+
+    <!-- Feature 3 -->
+    <div class="feature-card-vertical" v-if="selectedRole === 'student'">
+      <div class="gradient-container gradient-purple">
+        <img
           :src="featureImage('careerNavigator')"
           :alt="$t('thirdFrame.features.careerNavigator.imageAlt')"
           class="mobile-screenshot"
         />
-        </div>
-        <div class="feature-content">
-          <div class="logo-text-container">
-            <img
-              src="@/assets/icons/navig-icon.png"
-              alt="Career Navigator Logo"
-              class="feature-logo"
-            />
-            <h3>{{ $t('thirdFrame.features.careerNavigator.title') }}</h3>
+      </div>
+      <div class="feature-content">
+        <div class="logo-text-container">
+          <img
+            src="@/assets/icons/navig-icon.png"
+            alt="Career Navigator Logo"
+            class="feature-logo"
+          />
+          <h3>{{ $t('thirdFrame.features.careerNavigator.title') }}</h3>
         </div>
         <p>{{ $t('thirdFrame.features.careerNavigator.description') }}</p>
-        </div>
       </div>
     </div>
-  </section>
+
+    <!-- Teacher Feature 3 -->
+    <div class="feature-card-vertical" v-if="selectedRole === 'teacher'">
+      <div class="gradient-container gradient-purple">
+        <img
+          :src="featureImage('aiConsultant')"
+          :alt="$t('thirdFrame.features.aiConsultant.imageAlt')"
+          class="clipped-image3"
+        />
+      </div>
+      <div class="feature-content">
+        <div class="logo-text-container">
+          <img
+            src="@/assets/icons/teacher-icon3.svg"
+            alt="Teacher Feature 3 Logo"
+            class="feature-logo"
+          />
+          <h3>{{ $t('thirdFrame.features.aiConsultant.title') }}</h3>
+        </div>
+        <p>{{ $t('thirdFrame.features.aiConsultant.description') }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 
   <section class="company-section">
     <h2>{{ $t('companySection.title') }}</h2>
     <div class="logo-frame">
-      <img src="@/assets/schools/nu.png" alt="Nazarbayev University" />
-      <img src="@/assets/schools/astana-hub.png" alt="Astana Hub" />
-      <img src="@/assets/schools/nuris.png" alt="NURIS Technopark" />
-      <img src="@/assets/schools/technopark.png" alt="NU Research System" />
-      <img src="@/assets/schools/binom.png" alt="Binom School" />
+      <img src="@/assets/schools/nu.svg" alt="Nazarbayev University" />
+      <img src="@/assets/schools/astana-hub.svg" alt="Astana Hub" />
+      <img src="@/assets/schools/nuris.svg" alt="NURIS Technopark" />
+      <img src="@/assets/schools/technopark.svg" alt="NU Research System" />
+      <img src="@/assets/schools/binom.svg" alt="Binom School" />
       <img
-        src="@/assets/schools/edu.png"
+        src="@/assets/schools/edu.svg"
         alt="Фонд устойчивого развития образования"
       />
-      <img src="@/assets/schools/techfiz.png" alt="Tech Fiz" />
+      <img src="@/assets/schools/techfiz.svg" alt="Tech Fiz" />
     </div>
   </section>
 
@@ -291,7 +363,7 @@ export default {
   
   data() {
     return {
-      selectedRole: 'student', // Default to the student page
+      selectedRole: "student", // Default role
     };
   },
   methods: {
@@ -299,7 +371,7 @@ export default {
       this.$i18n.locale = lang;
     },
     changeRole(role) {
-      this.selectedRole = role; // Update the selected role
+      this.selectedRole = role; // Update selected role
     },
     cardImage(cardKey) {
       const locale = this.$i18n.locale;
@@ -324,12 +396,18 @@ export default {
         ru: {
           stepPlan: require("@/assets/screenshots/proforientation-rus.svg"),
           personalGuide: require("@/assets/screenshots/main-rus-student.svg"),
-          careerNavigator: require("@/assets/screenshots/resources-rus.svg")
+          careerNavigator: require("@/assets/screenshots/resources-rus.svg"),
+          analytics: require("@/assets/screenshots/teachers/main-rus-teacher.svg"),
+          careerGuide: require("@/assets/screenshots/teachers/resources-rus-teacher.svg"),
+          aiConsultant: require("@/assets/screenshots/teachers/ai-rus-teacher.svg")
         },
         kz: {
           stepPlan: require("@/assets/screenshots/proforientation-kaz.svg"),
           personalGuide: require("@/assets/screenshots/main-kaz-student.svg"),
-          careerNavigator: require("@/assets/screenshots/resources-kaz.svg")
+          careerNavigator: require("@/assets/screenshots/resources-kaz.svg"),
+          analytics: require("@/assets/screenshots/teachers/main-kaz-teacher.svg"),
+          careerGuide: require("@/assets/screenshots/teachers/resources-kaz-teacher.svg"),
+          aiConsultant: require("@/assets/screenshots/teachers/ai-kaz-teacher.svg"),
         }
       };
       return imageMap[locale][featureKey];
@@ -343,10 +421,10 @@ export default {
         : require('@/assets/screenshots/main-kaz-student.svg');
     } else if (this.selectedRole === 'teacher') {
       return this.$i18n.locale === 'ru'
-        ? require('@/assets/screenshots/main-rus-teacher.svg')
-        : require('@/assets/screenshots/main-rus-teacher.svg');
+        ? require('@/assets/screenshots/teachers/main-rus-teacher.svg')
+        : require('@/assets/screenshots/teachers/main-kaz-teacher.svg');
     }
-    return require('@/assets/screenshots/main-rus-teacher.svg');
+    return require('@/assets/screenshots/teachers/main-rus-teacher.svg');
   }
 
   },
