@@ -111,153 +111,151 @@
     </div>
   </section>
 
-  <!-- Third Frame Section -->
-  <!-- Third Frame Section -->
-<section class="third-frame">
-  <!-- Title -->
-  <div class="frame-header-left">
-    <h2>{{ selectedRole === 'student' ? $t("thirdFrame.studentTitle") : $t("thirdFrame.teacherTitle") }}</h2>
-    <p>{{ selectedRole === 'student' ? $t("thirdFrame.studentDescription") : $t("thirdFrame.teacherDescription") }}</p>
-  </div>
-
-  <!-- Features Container -->
-  <div class="features-container-vertical">
-    <!-- Feature 1 -->
-    <div class="feature-card-vertical" v-if="selectedRole === 'student'">
-      <div class="gradient-container gradient-blue">
-        <img
-          :src="featureImage('stepPlan')"
-          :alt="$t('thirdFrame.features.stepPlan.imageAlt')"
-          class="mobile-screenshot"
-        />
-      </div>
-      <div class="feature-content">
-        <div class="logo-text-container">
-          <img
-            src="@/assets/icons/plan-icon.png"
-            alt="Step Plan Logo"
-            class="feature-logo"
-          />
-          <h3>{{ $t('thirdFrame.features.stepPlan.title') }}</h3>
-        </div>
-        <p>{{ $t('thirdFrame.features.stepPlan.description') }}</p>
-      </div>
+  <!-- Description Section -->
+  <section class="third-frame">
+    <!-- Main Informationg about "Для Школ" and "Для учеников" platforms -->
+    <div class="frame-header-left">
+      <h2>{{ selectedRole === 'student' ? $t("thirdFrame.studentTitle") : $t("thirdFrame.teacherTitle") }}</h2>
+      <p>{{ selectedRole === 'student' ? $t("thirdFrame.studentDescription") : $t("thirdFrame.teacherDescription") }}</p>
     </div>
 
-    <!-- Teacher Feature 1 -->
-    <div class="feature-card-vertical" v-if="selectedRole === 'teacher'">
-      <div class="gradient-container gradient-blue">
+    <!-- Features Container -->
+    <div class="features-container-vertical">
+      <!-- Feature 1 -->
+      <div class="feature-card-vertical" v-if="selectedRole === 'student'">
+        <div class="gradient-container gradient-blue">
           <img
-          :src="featureImage('analytics')"
-          :alt="$t('thirdFrame.features.analytics.imageAlt')"
-          class="clipped-image1"
+            :src="featureImage('stepPlan')"
+            :alt="$t('thirdFrame.features.stepPlan.imageAlt')"
+            class="mobile-screenshot"
           />
-      </div>
-      <div class="feature-content">
-        <div class="logo-text-container">
-          <img
-            src="@/assets/icons/teacher-icon1.svg"
-            alt="Teacher Feature 1 Logo"
-            class="feature-logo"
-          />
-          <h3>{{ $t('thirdFrame.features.analytics.title') }}</h3>
         </div>
-        <p>{{ $t('thirdFrame.features.analytics.description') }}</p>
+        <div class="feature-content">
+          <div class="logo-text-container">
+            <img
+              src="@/assets/icons/plan-icon.png"
+              alt="Step Plan Logo"
+              class="feature-logo"
+            />
+            <h3>{{ $t('thirdFrame.features.stepPlan.title') }}</h3>
+          </div>
+          <p>{{ $t('thirdFrame.features.stepPlan.description') }}</p>
+        </div>
+      </div>
+
+      <!-- Teacher Feature 1 -->
+      <div class="feature-card-vertical" v-if="selectedRole === 'teacher'">
+        <div class="gradient-container gradient-blue">
+            <img
+            :src="featureImage('analytics')"
+            :alt="$t('thirdFrame.features.analytics.imageAlt')"
+            class="clipped-image1"
+            />
+        </div>
+        <div class="feature-content">
+          <div class="logo-text-container">
+            <img
+              src="@/assets/icons/teacher-icon1.svg"
+              alt="Teacher Feature 1 Logo"
+              class="feature-logo"
+            />
+            <h3>{{ $t('thirdFrame.features.analytics.title') }}</h3>
+          </div>
+          <p>{{ $t('thirdFrame.features.analytics.description') }}</p>
+        </div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature-card-vertical reverse-layout" v-if="selectedRole === 'student'">
+        <div class="gradient-container gradient-orange">
+          <img
+            :src="featureImage('personalGuide')"
+            :alt="$t('thirdFrame.features.personalGuide.imageAlt')"
+            class="mobile-screenshot"
+          />
+        </div>
+        <div class="feature-content">
+          <div class="logo-text-container">
+            <img
+              src="@/assets/icons/indiv-icon.png"
+              alt="Personal Guide Logo"
+              class="feature-logo"
+            />
+            <h3>{{ $t('thirdFrame.features.personalGuide.title') }}</h3>
+          </div>
+          <p>{{ $t('thirdFrame.features.personalGuide.description') }}</p>
+        </div>
+      </div>
+
+      <!-- Teacher Feature 2 -->
+      <div class="feature-card-vertical reverse-layout" v-if="selectedRole === 'teacher'">
+        <div class="gradient-container gradient-orange">
+          <img
+            :src="featureImage('careerGuide')"
+            :alt="$t('thirdFrame.features.careerGuide.imageAlt')"
+            class="clipped-image2"
+          />
+        </div>
+        <div class="feature-content">
+          <div class="logo-text-container">
+            <img
+              src="@/assets/icons/teacher-icon2.svg"
+              alt="Teacher Feature 2 Logo"
+              class="feature-logo"
+            />
+            <h3>{{ $t('thirdFrame.features.careerGuide.title') }}</h3>
+          </div>
+          <p>{{ $t('thirdFrame.features.careerGuide.description') }}</p>
+        </div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature-card-vertical" v-if="selectedRole === 'student'">
+        <div class="gradient-container gradient-purple">
+          <img
+            :src="featureImage('careerNavigator')"
+            :alt="$t('thirdFrame.features.careerNavigator.imageAlt')"
+            class="mobile-screenshot"
+          />
+        </div>
+        <div class="feature-content">
+          <div class="logo-text-container">
+            <img
+              src="@/assets/icons/navig-icon.png"
+              alt="Career Navigator Logo"
+              class="feature-logo"
+            />
+            <h3>{{ $t('thirdFrame.features.careerNavigator.title') }}</h3>
+          </div>
+          <p>{{ $t('thirdFrame.features.careerNavigator.description') }}</p>
+        </div>
+      </div>
+
+      <!-- Teacher Feature 3 -->
+      <div class="feature-card-vertical" v-if="selectedRole === 'teacher'">
+        <div class="gradient-container gradient-purple">
+          <img
+            :src="featureImage('aiConsultant')"
+            :alt="$t('thirdFrame.features.aiConsultant.imageAlt')"
+            class="clipped-image3"
+          />
+        </div>
+        <div class="feature-content">
+          <div class="logo-text-container">
+            <img
+              src="@/assets/icons/teacher-icon3.svg"
+              alt="Teacher Feature 3 Logo"
+              class="feature-logo"
+            />
+            <h3>{{ $t('thirdFrame.features.aiConsultant.title') }}</h3>
+          </div>
+          <p>{{ $t('thirdFrame.features.aiConsultant.description') }}</p>
+        </div>
       </div>
     </div>
+  </section>
 
-    <!-- Repeat for remaining features -->
-    <!-- Feature 2 -->
-    <div class="feature-card-vertical reverse-layout" v-if="selectedRole === 'student'">
-      <div class="gradient-container gradient-orange">
-        <img
-          :src="featureImage('personalGuide')"
-          :alt="$t('thirdFrame.features.personalGuide.imageAlt')"
-          class="mobile-screenshot"
-        />
-      </div>
-      <div class="feature-content">
-        <div class="logo-text-container">
-          <img
-            src="@/assets/icons/indiv-icon.png"
-            alt="Personal Guide Logo"
-            class="feature-logo"
-          />
-          <h3>{{ $t('thirdFrame.features.personalGuide.title') }}</h3>
-        </div>
-        <p>{{ $t('thirdFrame.features.personalGuide.description') }}</p>
-      </div>
-    </div>
-
-    <!-- Teacher Feature 2 -->
-    <div class="feature-card-vertical reverse-layout" v-if="selectedRole === 'teacher'">
-      <div class="gradient-container gradient-orange">
-        <img
-          :src="featureImage('careerGuide')"
-          :alt="$t('thirdFrame.features.careerGuide.imageAlt')"
-          class="clipped-image2"
-        />
-      </div>
-      <div class="feature-content">
-        <div class="logo-text-container">
-          <img
-            src="@/assets/icons/teacher-icon2.svg"
-            alt="Teacher Feature 2 Logo"
-            class="feature-logo"
-          />
-          <h3>{{ $t('thirdFrame.features.careerGuide.title') }}</h3>
-        </div>
-        <p>{{ $t('thirdFrame.features.careerGuide.description') }}</p>
-      </div>
-    </div>
-
-    <!-- Feature 3 -->
-    <div class="feature-card-vertical" v-if="selectedRole === 'student'">
-      <div class="gradient-container gradient-purple">
-        <img
-          :src="featureImage('careerNavigator')"
-          :alt="$t('thirdFrame.features.careerNavigator.imageAlt')"
-          class="mobile-screenshot"
-        />
-      </div>
-      <div class="feature-content">
-        <div class="logo-text-container">
-          <img
-            src="@/assets/icons/navig-icon.png"
-            alt="Career Navigator Logo"
-            class="feature-logo"
-          />
-          <h3>{{ $t('thirdFrame.features.careerNavigator.title') }}</h3>
-        </div>
-        <p>{{ $t('thirdFrame.features.careerNavigator.description') }}</p>
-      </div>
-    </div>
-
-    <!-- Teacher Feature 3 -->
-    <div class="feature-card-vertical" v-if="selectedRole === 'teacher'">
-      <div class="gradient-container gradient-purple">
-        <img
-          :src="featureImage('aiConsultant')"
-          :alt="$t('thirdFrame.features.aiConsultant.imageAlt')"
-          class="clipped-image3"
-        />
-      </div>
-      <div class="feature-content">
-        <div class="logo-text-container">
-          <img
-            src="@/assets/icons/teacher-icon3.svg"
-            alt="Teacher Feature 3 Logo"
-            class="feature-logo"
-          />
-          <h3>{{ $t('thirdFrame.features.aiConsultant.title') }}</h3>
-        </div>
-        <p>{{ $t('thirdFrame.features.aiConsultant.description') }}</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-
+  <!-- Partners Section -->
   <section class="company-section">
     <h2>{{ $t('companySection.title') }}</h2>
     <div class="logo-frame">
@@ -266,18 +264,15 @@
       <img src="@/assets/schools/nuris.svg" alt="NURIS Technopark" />
       <img src="@/assets/schools/technopark.svg" alt="NU Research System" />
       <img src="@/assets/schools/binom.svg" alt="Binom School" />
-      <img
-        src="@/assets/schools/edu.svg"
-        alt="Фонд устойчивого развития образования"
-      />
+      <img src="@/assets/schools/edu.svg" alt="Образованик" />
       <img src="@/assets/schools/techfiz.svg" alt="Tech Fiz" />
     </div>
   </section>
 
+  <!-- Advantages section (only for teachers) -->
   <section v-if="selectedRole === 'teacher'" class="advantages-section">
   <!-- Title -->
   <h2>{{ $t('advantagesAI.title') }}</h2>
-
   <!-- Features Grid -->
   <div class="advantages-grid">
     <!-- Feature 1 -->
@@ -318,6 +313,7 @@
   </div>
 </section>
 
+  <!-- Blue Background Section -->
   <section class="download-section">
     <div class="download-content">
       <!-- Left Side: Text and QR -->
@@ -337,6 +333,8 @@
       </div>
     </div>
   </section>
+
+
   <!-- Footer Section -->
   <footer class="footer">
     <div class="footer-container">
@@ -383,7 +381,7 @@
 
 <script>
 import CardComponent from "./components/CardComponent.vue";
-import "@/styles/App.css"; // Import the CSS file
+import "@/styles/App.css"; // CSS file
 
 export default {
   components: { CardComponent },
@@ -400,7 +398,7 @@ export default {
       this.$i18n.locale = lang;
     },
     changeRole(role) {
-      this.selectedRole = role; // Update selected role
+      this.selectedRole = role; // Updating selected role
     },
     cardImage(cardKey) {
       const locale = this.$i18n.locale;
