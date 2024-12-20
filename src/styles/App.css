@@ -95,7 +95,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 24px; /* Increased gap for more distance between buttons */
+  gap: 24px; 
   margin-top: 20px;
 }
 .role-btn {
@@ -103,15 +103,15 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 120px; /* Reduced width */
-  height: 120px; /* Reduced height */
+  width: 120px; 
+  height: 120px; 
   border: none;
-  border-radius: 12px; /* Adjusted radius for smaller buttons */
+  border-radius: 12px; 
   cursor: pointer;
   background-color: #ffffff;
   transition: all 0.3s ease-in-out;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-size: 14px; /* Reduced font size */
+  font-size: 14px; 
   font-weight: 500;
   color: #052dc1;
 }
@@ -126,8 +126,8 @@ body {
 }
 
 .role-icon {
-  width: 48px; /* Reduced icon size */
-  height: 48px; /* Reduced icon size */
+  width: 48px; 
+  height: 48px; 
   margin-bottom: 12px;
 }
 
@@ -165,11 +165,11 @@ body {
 }
 
 .phone-container.teacher {
-  width: 700px; /* Slightly larger for teacher role */
+  width: 700px; /* larger for teacher role */
 }
 
 .phone-container.teacher img {
-  width: 100%; /* Ensure larger images fit within container */
+  width: 100%; 
   box-shadow: 0 8px 10px rgba(0, 0, 0, 0.3);
 }
 
@@ -179,7 +179,7 @@ body {
     transform: translateY(0) translateX(0); /* Default position */
   }
   25% {
-    transform: translateY(-20px) translateX(-10px); /* Move up and slightly left */
+    transform: translateY(-20px) translateX(-10px); /* move up and slightly left */
   }
   50% {
     transform: translateY(0) translateX(0); /* Move up higher, center */
@@ -232,34 +232,35 @@ body {
     left: -20%; /* Adjust left position */
   }
 }
-/* Mobile Application Section */
+
+/* Section with Cards (Only for students */
 .mobile-application-section {
   text-align: center;
   margin-top: 50px;
 }
 
 .mobile-application-title {
-  font-size: 4rem; /* Increased font size */
+  font-size: 4rem; 
   font-weight: 700;
-  color: #23242A;
+  color: #23242a;
   margin-bottom: 40px;
   text-align: center;
 }
 
-/* Card Container */
 .card-container {
+  position: relative;
   display: flex;
   justify-content: center;
-  gap: 24px;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  overflow: hidden; 
 }
 
-/* Individual Cards */
-/* Individual Cards */
+/* Card Styling */
 .cardInfo {
   position: relative;
   width: 100%;
-  max-width: 350px; /* Fixed card width */
+  max-width: 350px;
   height: 500px;
   border-radius: 32px;
   overflow: hidden;
@@ -270,9 +271,48 @@ body {
   text-align: center;
   background-size: cover;
   background-position: center;
+  opacity: 1; 
+  transition: transform 0.8s ease, opacity 0.8s ease; /* smooth animations */
 }
 
-/* Replacing gradients with images */
+/* animation to move card 1 & 3 */
+.animated-card {
+  opacity: 0; /* hidden */
+  transform: scale(0.8); /* shrunk */
+  position: fixed;
+  z-index: 10; 
+  transition: opacity 0.8s ease, transform 1.2s ease;
+}
+
+/* Card 1 - in top-left corner */
+.animated-card:nth-of-type(1) {
+  top: -10%; 
+  left: -10%;
+  transform: translate(-100%, -100%) scale(0.8); 
+}
+
+/* Card 3 - in top-right corner */
+.animated-card:nth-of-type(3) {
+  top: -10%; 
+  right: -10%;
+  transform: translate(100%, -100%) scale(0.8);
+}
+
+/* After Scrolling */
+.animated-card.visible {
+  opacity: 1; 
+  transform: translate(30%, 0%) scale(1); 
+  position: relative; 
+  transition: transform 1.2s ease, opacity 0.8s ease;
+}
+
+/* card 3- move closer to center */
+.animated-card:nth-of-type(3).visible {
+  transform: translate(-30%, 0%) scale(1); 
+}
+
+
+/* background gradient for cards */
 .cardInfo.blue {
   background: url('@/assets/appCards/glass1.png') no-repeat center center/cover;
 }
@@ -285,85 +325,52 @@ body {
   background: url('@/assets/appCards/glass3.png') no-repeat center center/cover;
 }
 
-/* Blur Overlay for Text */
+/* blur */
 .cardInfo::after {
   content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 30%; /* Increased height for smoother transition */
-  background: linear-gradient(
-    to top,
-  );
-  backdrop-filter: blur(2px); /* Lighter blur */
-  z-index: 1;
-}
-.cardInfo.red::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 30%; /* Increased height for smoother transition */
-  background: linear-gradient(
-    to top,
-    rgba(233, 132, 132, 0.5) 0%, /* Deep blue at the bottom */
-    rgba(226, 141, 141, 0.5) 20%, /* Lighter blue */
-    rgba(233, 147, 148, 0.5) 50%, /* Near-transparent */
-    rgba(227, 149, 149, 0.5) 70% /* Fully transparent */
-  );
-  backdrop-filter: blur(2px); /* Lighter blur */
-  z-index: 1;
-}
-
-/* Blue Card Blur */
-.cardInfo.blue::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 30%; /* Height for smoother transition */
-  background: linear-gradient(
-    to top,
-    rgba(0, 122, 255, 0.5) 0%, /* Deep blue at the bottom */
-    rgba(0, 122, 255, 0.5) 20%, /* Lighter blue */
-    rgba(0, 122, 255, 0.5) 50%, /* Near-transparent */
-    rgba(171, 194, 255, 0.293) 70% /* Fully transparent */
-  );
-  backdrop-filter: blur(2px); /* Subtle blur */
-  z-index: 1;
-}
-
-
-
-/* Purple Card Blur */
-.cardInfo.purple::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 30%;
-  background: linear-gradient(
-    to top,
-    rgba(79, 55, 138, 0.4) 0%, /* Deep purple */
-    rgba(79, 55, 138, 0.2) 20%, /* Lighter purple */
-    rgba(79, 55, 138, 0.05) 50%, /* Near-transparent */
-    rgba(79, 55, 138, 0) 70% /* Fully transparent */
-  );
+  height: 30%; 
   backdrop-filter: blur(2px);
   z-index: 1;
 }
 
-/* Card Title */
+.cardInfo.blue::after {
+  background: linear-gradient(
+    to top,
+    rgba(0, 122, 255, 0.5) 0%,
+    rgba(0, 122, 255, 0.2) 70%,
+    transparent 100%
+  );
+}
+
+.cardInfo.red::after {
+  background: linear-gradient(
+    to top,
+    rgba(233, 132, 132, 0.5) 0%,
+    rgba(226, 141, 141, 0.2) 70%,
+    transparent 100%
+  );
+}
+
+.cardInfo.purple::after {
+  background: linear-gradient(
+    to top,
+    rgba(79, 55, 138, 0.4) 0%,
+    rgba(79, 55, 138, 0.2) 70%,
+    transparent 100%
+  );
+}
+
+/* Card Titles */
 .card-title {
   position: absolute;
-  bottom: 40px; /* Moved text higher */
+  bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 2rem; /* Larger font size */
+  font-size: 2rem;
   font-weight: 700;
   color: white;
   text-transform: uppercase;
@@ -371,11 +378,11 @@ body {
   z-index: 2;
 }
 
-/* Card Image */
+/* Card Images */
 .card-image {
   position: absolute;
-  top: 12%; /* Moves image lower inside the card */
-  width: 70%; /* Smaller image size */
+  top: 12%;
+  width: 70%;
   height: auto;
   object-fit: cover;
   border-radius: 16px;
@@ -383,14 +390,17 @@ body {
   z-index: 0;
 }
 
-
-/* Responsive Styling */
+/* making responsive */
 @media (max-width: 768px) {
   .mobile-application-title {
     font-size: 3rem;
   }
 
-  .card {
+  .card-container {
+    flex-direction: column; /* Stack cards vertically */
+  }
+
+  .cardInfo {
     max-width: 300px;
     height: 450px;
   }
@@ -406,11 +416,7 @@ body {
 }
 
 @media (max-width: 480px) {
-  .mobile-application-title {
-    font-size: 2.5rem;
-  }
-
-  .card {
+  .cardInfo {
     max-width: 100%;
     height: 400px;
   }
@@ -425,11 +431,12 @@ body {
   }
 }
 
-/* Third Frame Section */
+
+/* "About" section */
 .logo-text-container {
   display: flex;
   align-items: center;
-  gap: 16px; /* Space between logo and text */
+  gap: 16px; 
   margin-bottom: 12px;
 }
 
@@ -452,7 +459,6 @@ body {
   margin: 50px auto;
 }
 
-/* Title Positioned to the Left */
 .frame-header-left {
   text-align: left;
   max-width: 1176px;
@@ -480,7 +486,7 @@ body {
   width: 100%;
 }
 
-/* Individual Feature Card */
+/* each separate feature */
 .feature-card-vertical {
   display: flex;
   flex-direction: row;
@@ -497,7 +503,7 @@ body {
   flex-direction: row-reverse;
 }
 
-/* Gradient Container */
+/* background gradient */
 .gradient-container {
   display: flex;
   justify-content: center;
@@ -524,29 +530,28 @@ body {
 
 .clipped-image1 {
   position: absolute;
-  width: 815px; /* Original image width */
-  height: 568px; /* Original image height */
-  left: 60px; /* Align to show the desired part */
-  bottom: -228px; /* Adjust to align */
+  width: 815px;
+  height: 568px; 
+  left: 60px; 
+  bottom: -228px; 
 }
 
 .clipped-image2 {
   position: absolute;
-  width: 815px; /* Original image width */
-  height: 568px; /* Original image height */
-  right: 60px; /* Align to show the desired part */
-  bottom: -228px; /* Adjust to align */
+  width: 815px; 
+  height: 568px; 
+  right: 60px; 
+  bottom: -228px; 
 }
 
 .clipped-image3 {
   position: absolute;
-  width: 815px; /* Original image width */
-  height: 568px; /* Original image height */
-  right: 60px; /* Align to show the desired part */
-  top: -50px; /* Adjust to align */
+  width: 815px;
+  height: 568px; 
+  right: 60px; 
+  top: -50px; 
 }
 
-/* Mobile Screenshot */
 .mobile-screenshot {
   width: 280px;
   height: 584px;
@@ -557,7 +562,6 @@ body {
  
 }
 
-/* Content Text */
 .feature-content {
   display: flex;
   flex-direction: column;
@@ -579,7 +583,7 @@ body {
   color: rgba(0, 0, 0, 0.6);
 }
 
-/* Responsive Adjustments */
+/* responsive */
 @media (max-width: 768px) {
   .feature-card-vertical {
     flex-direction: column;
@@ -600,8 +604,7 @@ body {
   }
 }
 
-/* Fourth section */
-/* General Container */
+/* Partners section */
 .company-section {
   display: flex;
   flex-direction: column;
@@ -612,7 +615,6 @@ body {
   margin: 0 auto;
 }
 
-/* Header Text */
 .company-section h2 {
   font-family: 'Inter', sans-serif;
   font-weight: 600;
@@ -623,7 +625,6 @@ body {
   margin: 0;
 }
 
-/* Logo Frame Wrapper */
 .logo-frame {
   display: flex;
   flex-wrap: wrap;
@@ -641,7 +642,6 @@ body {
   object-fit: contain;
 }
 
-/* Responsive Adjustments */
 @media (max-width: 1024px) {
   .company-section h2 {
       font-size: 40px;
@@ -669,6 +669,7 @@ body {
   }
 }
 
+/* "Advantages" section (only for teachers) */
 .advantages-section {
   display: flex;
   flex-direction: column;
@@ -691,7 +692,6 @@ body {
   margin-bottom: 16px;
 }
 
-/* Grid Layout */
 .advantages-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -699,7 +699,6 @@ body {
   width: 100%;
 }
 
-/* Individual Cards */
 .advantage-card {
   display: flex;
   flex-direction: column;
@@ -717,7 +716,6 @@ body {
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
-/* Card Titles */
 .advantage-card h3 {
   font-family: "Inter", sans-serif;
   font-weight: 600;
@@ -726,7 +724,6 @@ body {
   margin-bottom: 12px;
 }
 
-/* Card Descriptions */
 .advantage-card p {
   font-family: "Inter", sans-serif;
   font-weight: 400;
@@ -747,7 +744,7 @@ body {
   }
 }
 
-/* Container Section */
+/* Blue Background Section */
 .download-section {
   position: relative;
   width: 100%;
@@ -758,7 +755,6 @@ body {
   background: url("../assets/background.jpeg") no-repeat center center/cover;
 }
 
-/* Content Wrapper */
 .download-content {
   display: flex;
   align-items: center;
@@ -767,7 +763,7 @@ body {
   position: relative;
 }
 
-/* Left Section: Text and QR */
+/* left section: text & qr */
 .text-qr {
   display: flex;
   flex-direction: column;
@@ -802,17 +798,17 @@ body {
 .qr-code img {
 
   width: 205px;
-  height: 205px; /* Ensures it's a square */
-  border-radius: 12px; /* Rounded borders */
-  background-color: #ffffff; /* Optional: Adds a white background for better visibility */
-  padding: 5px; /* Small inner padding for aesthetics */
+  height: 205px; 
+  border-radius: 12px; 
+  background-color: #ffffff; 
+  padding: 5px;
 }
 
-/* Right Section: Phone and Hand */
+/* right Section: phone in hands */
 .hand-phone {
   position: absolute;
   right: 0;
-  bottom: 200px; /* Overlap adjustment */
+  bottom: 200px;
   right: -200px;
   max-width: 50%;
   max-height: 50%;
@@ -823,7 +819,6 @@ body {
   height: auto;
 }
 
-/* Responsive Adjustments */
 @media (max-width: 1024px) {
   .download-content {
       flex-direction: column;
@@ -856,7 +851,7 @@ body {
   }
 }
 
-/* Footer General Styles */
+/* Footer */
 .footer {
   background-color: #ffffff;
   border-top: 1px solid #d7dae2;
@@ -872,7 +867,6 @@ body {
   
 }
 
-/* Footer Container */
 .footer-container {
   display: flex;
   justify-content: space-between;
@@ -881,7 +875,7 @@ body {
   gap: 40px;
 }
 
-/* Left Section: Contact */
+/* left section: contacts */
 .footer-contact {
   flex: 1 1 50%;
   max-width: 590px;
@@ -913,7 +907,7 @@ body {
   text-decoration: underline;
 }
 
-/* Right Section: Logo and Social Media */
+/* right section: logo & social media */
 .footer-info {
   flex: 1 1 30%;
   display: flex;

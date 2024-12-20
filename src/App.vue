@@ -75,41 +75,47 @@
     </div>
   </div>
 
-  <!-- Cards Section (Only for students) -->
-  <section class="mobile-application-section" v-if="selectedRole === 'student'">
-    <h2 class="mobile-application-title">{{ $t('mobileApp.title') }}</h2>
-    <div class="card-container">
-      <!-- 1st Card -->
-      <div class="cardInfo blue">
-        <img
+
+<!-- Cards Section (Only for students) -->
+<section
+  class="mobile-application-section"
+  v-if="selectedRole === 'student'"
+  ref="mobileApplicationSection"
+>
+  <h2 class="mobile-application-title">{{ $t('mobileApp.title') }}</h2>
+  <div class="card-container">
+    <!-- 1st Card -->
+    <div class="cardInfo blue animated-card" ref="card1">
+      <img
         :src="cardImage('card1')"
         :alt="$t('secondSection.cards.card1.alt')"
         class="card-image"
       />
       <h3 class="card-title" v-html="$t('mobileApp.cards.proforientation')"></h3>
-      </div>
+    </div>
 
-      <!-- 2nd Card -->
-      <div class="cardInfo red">
-        <img
+    <!-- 2nd Card (Static) -->
+    <div class="cardInfo red">
+      <img
         :src="cardImage('card2')"
         :alt="$t('secondSection.cards.card2.alt')"
         class="card-image"
       />
       <h3 class="card-title" v-html="$t('mobileApp.cards.aiConsultant')"></h3>
-      </div>
+    </div>
 
-      <!-- 3rd Card -->
-      <div class="cardInfo purple">
-        <img
+    <!-- 3rd Card -->
+    <div class="cardInfo purple animated-card" ref="card3">
+      <img
         :src="cardImage('card3')"
         :alt="$t('secondSection.cards.card3.alt')"
         class="card-image"
       />
       <h3 class="card-title" v-html="$t('mobileApp.cards.resources')"></h3>
-      </div>
     </div>
-  </section>
+  </div>
+</section>
+
 
   <!-- Description Section -->
   <section class="third-frame">
@@ -329,7 +335,7 @@
 
       <!-- Right Side: Hand and Phone -->
       <div class="hand-phone">
-        <img src="@/assets/hand-phone.png" alt="Hand Holding Phone" />
+        <img :src="handPhoneImage" :alt="$i18n.locale === 'kz' ? 'Қол телефон' : 'Hand Holding Phone'" />
       </div>
     </div>
   </section>
@@ -382,10 +388,29 @@
 <script>
 import CardComponent from "./components/CardComponent.vue";
 import "@/styles/App.css"; // CSS file
+import { onMounted, ref } from 'vue';
 
 export default {
   components: { CardComponent },
-  
+  mounted() {
+    const observerOptions = {
+      root: null, // Observe the viewport
+      threshold: 0.3, // Trigger when 30% of the section is visible
+    };
+
+    const observerCallback = (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          this.animateCards();
+          observer.unobserve(entry.target); // Stop observing once animation is triggered
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    observer.observe(this.$refs.mobileApplicationSection); // Observe the entire section
+  },
+
   data() {
     return {
       selectedRole: "student", // Default role
@@ -394,6 +419,14 @@ export default {
     
   },
   methods: {
+    animateCards() {
+      const card1 = this.$refs.card1;
+      const card3 = this.$refs.card3;
+
+      // Add the 'visible' class to trigger animations
+      if (card1) card1.classList.add('visible');
+      if (card3) card3.classList.add('visible');
+    },
     changeLanguage(lang) {
       this.$i18n.locale = lang;
     },
@@ -452,7 +485,13 @@ export default {
         : require('@/assets/screenshots/teachers/main-kaz-teacher.svg');
     }
     return require('@/assets/screenshots/teachers/main-rus-teacher.svg');
-  }
+  },
+    handPhoneImage() {
+        // Return different images based on the language
+        return this.$i18n.locale === 'kz'
+          ? require('@/assets/hand-phone-kaz.png')
+          : require('@/assets/hand-phone.png');
+    },
 
   },
 };
