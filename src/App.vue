@@ -50,12 +50,12 @@
 
   <!-- Main Screen -->
   <div :class="['phone-container', { teacher: selectedRole === 'teacher' }]">
-    <div class="phone-frame">
-      <img
-        :src="phoneImage"
-        :alt="$i18n.locale === 'ru' ? 'Phone Mockup (Russian)' : 'Phone Mockup (Kazakh)'"
-      />
-    </div>
+    <div v-if="isLoading">
+          <span>PRELOADING IMAGES...</span>
+        </div>
+        <div v-else class="phone-frame">
+          <img :src="phoneImage" :alt="$i18n.locale === 'ru' ? 'Phone Mockup (Russian)' : 'Phone Mockup (Kazakh)'" />
+        </div>
       <!-- Floating Cards -->
       <CardComponent
         :icon="require('@/assets/appCards/materials.png')"
@@ -404,15 +404,80 @@ export default {
     const observer = new IntersectionObserver(observerCallback, observerOptions);
     observer.observe(this.$refs.mobileApplicationSection); // Observe the entire section
   },
+  watch: {
+      selectedRole(newVal) {
+        if (newVal === 'student') {
+          // Re-init the IntersectionObserver
+          // $nextTick makes sure it is present in the DOM
+          // otherwise, you get a runtime error
+          this.$nextTick(() => {
+            this.initObserver();
+          });
+        }
+      }
+    },
 
   data() {
     return {
       selectedRole: "student", // Default role
+      preloadedImages: {},
+      isLoading: true
       
     };
-    
   },
+  created() {
+      // Called in the beninging, in the, in the beningin
+      this.preloadImages();
+    },
   methods: {
+    initObserver() {
+      const observerOptions = {
+        root: null, // Observe the viewport
+        threshold: 0.3, // Trigger when 30% of the section is visible
+      };
+
+      const observerCallback = (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            this.animateCards();
+            observer.unobserve(entry.target); // Stop observing once animation is triggered
+          }
+        });
+      };
+
+      const observer = new IntersectionObserver(observerCallback, observerOptions);
+      observer.observe(this.$refs.mobileApplicationSection); // Observe the entire section
+    },
+    async preloadImages() {
+      // Meant to slow down preloading while debugging 
+      // to see what happens if it takes too long
+      // await new Promise(r => setTimeout(r, 2000));
+
+      // Only added 4 paths that correspond to the main image 
+      // that takes a lot of time to transform when the page is first loaded
+      const imagePaths = {
+        student_ru: require('@/assets/screenshots/main-rus-student.svg'),
+        student_kz: require('@/assets/screenshots/main-kaz-student.svg'),
+        teacher_ru: require('@/assets/screenshots/teachers/main-rus-teacher.svg'),
+        teacher_kz: require('@/assets/screenshots/teachers/main-kaz-teacher.svg')
+      };
+
+      let loadedCount = 0;
+      const totalImages = Object.keys(imagePaths).length;
+
+      Object.entries(imagePaths).forEach(([key, path]) => {
+        const img = new Image();
+        // This is important to make sure we are not loading the page forever
+        img.onload = () => {
+          loadedCount++;
+          if (loadedCount === totalImages) {
+            this.isLoading = false;
+          }
+        };
+        img.src = path;
+        this.preloadedImages[key] = img;
+      });
+    },
     animateCards() {
       const card1 = this.$refs.card1;
       const card3 = this.$refs.card3;
@@ -468,18 +533,26 @@ export default {
     }
   },
   computed: {
+  //   phoneImage() {
+  //   if (this.selectedRole === 'student') {
+  //     return this.$i18n.locale === 'ru'
+  //       ? require('@/assets/screenshots/main-rus-student.svg')
+  //       : require('@/assets/screenshots/main-kaz-student.svg');
+  //   } else if (this.selectedRole === 'teacher') {
+  //     return this.$i18n.locale === 'ru'
+  //       ? require('@/assets/screenshots/teachers/main-rus-teacher.svg')
+  //       : require('@/assets/screenshots/teachers/main-kaz-teacher.svg');
+  //   }
+  //   return require('@/assets/screenshots/teachers/main-rus-teacher.svg');
+  // },
     phoneImage() {
-    if (this.selectedRole === 'student') {
-      return this.$i18n.locale === 'ru'
-        ? require('@/assets/screenshots/main-rus-student.svg')
-        : require('@/assets/screenshots/main-kaz-student.svg');
-    } else if (this.selectedRole === 'teacher') {
-      return this.$i18n.locale === 'ru'
-        ? require('@/assets/screenshots/teachers/main-rus-teacher.svg')
-        : require('@/assets/screenshots/teachers/main-kaz-teacher.svg');
-    }
-    return require('@/assets/screenshots/teachers/main-rus-teacher.svg');
-  },
+        const role = this.selectedRole;
+        const locale = this.$i18n.locale;
+        // get the key from current role and locale
+        const key = `${role}_${locale}`;
+        // in case no such image return fallback image (should not really happen but just in case)
+        return this.preloadedImages[key]?.src || require('@/assets/screenshots/teachers/main-rus-teacher.svg');
+    },
     handPhoneImage() {
         // Return different images based on the language
         return this.$i18n.locale === 'kz'
