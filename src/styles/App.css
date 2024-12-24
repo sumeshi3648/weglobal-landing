@@ -364,22 +364,6 @@ body {
   );
 }
 
-/*
-.card-title {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 2rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  text-align: center;
-  color: #052dc1; 
-  z-index: 2;
-}
-
-*/
-
 .blue-title {
   position: absolute;
   bottom: 40px;

@@ -352,18 +352,13 @@
         {{ $t('footer.emailLabel') }}:
         <a href="mailto:ceo@weglobal.kz" class="footer-link">ceo@weglobal.kz</a>
       </p>
-      <p class="footer-detail">
-        {{ $t('footer.phoneLabel') }}:
-        <a href="tel:87072802882" class="footer-link">8-707-280-28-82</a>
-      </p>
-      <p class="footer-detail">
-        {{ $t('footer.addressLabel') }}: {{ $t('footer.address') }}
-      </p>
+      
       </div>
 
       <!-- Right Section: Logo and Social Media -->
       <div class="footer-info">
-        <h2 class="footer-logo">WEGLOBAL</h2>
+       
+        <img src="@/assets/logo.svg" alt="WEGLOBAL Logo" class="footer-logo" />
         <div class="footer-social">
           <p>{{ $t('footer.followUs') }}</p>
           <div class="social-links">
@@ -388,7 +383,6 @@
 <script>
 import CardComponent from "./components/CardComponent.vue";
 import "@/styles/App.css"; // CSS file
-import { onMounted, ref } from 'vue';
 
 export default {
   components: { CardComponent },
